@@ -8,14 +8,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mensaje = trim($_POST["mensaje"]);
 
     $curriculum_path = null;
-    if (isset($_FILES['curriculum']) && $_FILES['curriculum']['error'] === UPLOAD_ERR_OK) {
+    $cvFile = $_FILES['curriculum'] ?? ($_FILES['cv'] ?? null);
+    if ($cvFile && $cvFile['error'] === UPLOAD_ERR_OK) {
         $targetDir = __DIR__ . '/uploads/';
         if (!is_dir($targetDir)) {
             mkdir($targetDir, 0755, true);
         }
-        $fileName = uniqid('', true) . '-' . basename($_FILES['curriculum']['name']);
+        $fileName = uniqid('', true) . '-' . basename($cvFile['name']);
         $targetFile = $targetDir . $fileName;
-        if (move_uploaded_file($_FILES['curriculum']['tmp_name'], $targetFile)) {
+        if (move_uploaded_file($cvFile['tmp_name'], $targetFile)) {
             $curriculum_path = 'uploads/' . $fileName;
         }
     }
