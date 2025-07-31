@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($contrasena, $row['password'])) {
             $_SESSION['usuario_id'] = $row['id'];
             $_SESSION['rol'] = $row['rol'];
-            header('Location: vacantes.php');
+            header('Location: dashboard.php');
             exit();
         }
     }
