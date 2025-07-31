@@ -3,7 +3,7 @@ session_start();
 require_once 'conexion.php';
 
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($conn && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = trim($_POST['usuario']);
     $contrasena = $_POST['contrasena'];
 
@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     $error = 'Credenciales incorrectas';
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $error = 'Error de conexión con la base de datos';
 }
 ?>
 <!DOCTYPE html>
