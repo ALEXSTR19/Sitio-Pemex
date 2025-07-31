@@ -1,16 +1,18 @@
 <?php
 session_start();
 require_once "conexion.php";
-if(isset($_SESSION['usuario_id'])) {
-    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['puesto'], $_POST['descripcion'])) {
-        $puesto = trim($_POST['puesto']);
-        $descripcion = trim($_POST['descripcion']);
-        $stmt = $conn->prepare("INSERT INTO vacantes (puesto, descripcion) VALUES (?, ?)");
-        $stmt->bind_param('ss', $puesto, $descripcion);
-        $stmt->execute();
-    }
-    $vacantes = $conn->query("SELECT puesto, descripcion FROM vacantes");
+
+if(isset($_SESSION['usuario_id']) && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['puesto'], $_POST['descripcion'])) {
+    $puesto = trim($_POST['puesto']);
+    $descripcion = trim($_POST['descripcion']);
+    $stmt = $conn->prepare("INSERT INTO vacantes (puesto, descripcion) VALUES (?, ?)");
+    $stmt->bind_param('ss', $puesto, $descripcion);
+    $stmt->execute();
 }
+
+$vacantes = $conn->query("SELECT id, puesto, descripcion FROM vacantes");
+
+$puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,9 +25,6 @@ if(isset($_SESSION['usuario_id'])) {
 </head>
 <body class="vacantes-page">
     <div id="preloader">Cargando sitio...</div>
-    <div class="vacantes-top">
-  <a href="vacantes.php" class="btn-vacantes">Vacantes</a>
-</div>
   <header>
     <div class="logo"><img src="img/logo.png" alt="Pemex" style="height: 66px;"></div>
     <div class="menu-toggle">
@@ -43,6 +42,7 @@ if(isset($_SESSION['usuario_id'])) {
         <li><a href="principios.php">Principios</a></li>
             </ul>
         </li>
+<li><a href="vacantes.php">Vacantes</a></li>
 <li><a href="contacto.php">Contacto</a></li>
 <?php if(isset($_SESSION["usuario_id"])): ?>
 <li><a href="vacantes_internas.php">Vacantes internas</a></li>
@@ -53,16 +53,21 @@ if(isset($_SESSION['usuario_id'])) {
       </ul>
     </nav>
   </header>
-  <main>    
-  <section class="parallax-vacantes">
-  <div class="contenido-parallax">
-      <h2>Vacantes</h2>
-  </div>
-</section>
-    
-    <section class="seccion">
-      <p>Estamos buscando talento. Completa el siguiente formulario y nos pondremos en contacto contigo:</p>
+  <main>
+    <h1>Vacantes disponibles</h1>
+    <table class="vacantes-table">
+      <tr><th>Puesto</th><th>Descripci&oacute;n</th><th></th></tr>
+      <?php while($row = $vacantes->fetch_assoc()): ?>
+      <tr>
+        <td><?php echo htmlspecialchars($row['puesto']); ?></td>
+        <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
+        <td><a class="btn-vacantes" href="vacantes.php?puesto=<?php echo urlencode($row['puesto']); ?>#form-aplicar">Aplicar</a></td>
+      </tr>
+      <?php endwhile; ?>
+    </table>
 
+    <section id="form-aplicar" class="seccion">
+      <h2>Enviar solicitud</h2>
       <form class="vacantes-form" action="enviar_vacantes.php" method="POST">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
@@ -70,11 +75,11 @@ if(isset($_SESSION['usuario_id'])) {
         <label for="correo">Correo:</label>
         <input type="email" id="correo" name="correo" required>
 
-        <label for="telefono">Teléfono:</label>
+        <label for="telefono">Tel&eacute;fono:</label>
         <input type="tel" id="telefono" name="telefono" required>
 
-        <label for="puesto">Puesto de interés:</label>
-        <input type="text" id="puesto" name="puesto" required>
+        <label for="puesto">Puesto de inter&eacute;s:</label>
+        <input type="text" id="puesto" name="puesto" required value="<?php echo htmlspecialchars($puesto_solicitud); ?>">
 
         <label for="mensaje">Mensaje:</label>
         <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
@@ -82,8 +87,9 @@ if(isset($_SESSION['usuario_id'])) {
         <button type="submit">Enviar</button>
       </form>
     </section>
-    
+
 <?php if(isset($_SESSION['usuario_id'])): ?>
+<?php $vacantes_admin = $conn->query("SELECT puesto, descripcion FROM vacantes"); ?>
 <section class="seccion">
   <h3>Agregar vacante</h3>
   <form method="POST" action="vacantes.php">
@@ -98,7 +104,7 @@ if(isset($_SESSION['usuario_id'])) {
   <h3>Listado de vacantes</h3>
   <table class="vacantes-table">
     <tr><th>Puesto</th><th>Descripci&oacute;n</th></tr>
-    <?php while($row = $vacantes->fetch_assoc()): ?>
+    <?php while($row = $vacantes_admin->fetch_assoc()): ?>
     <tr>
       <td><?php echo htmlspecialchars($row['puesto']); ?></td>
       <td><?php echo htmlspecialchars($row['descripcion']); ?></td>

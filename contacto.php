@@ -10,9 +10,6 @@
 </head>
 <body>
     <div id="preloader">Cargando sitio...</div>
-    <div class="vacantes-top">
-  <a href="vacantes.php" class="btn-vacantes">Vacantes</a>
-</div>
   <header>
     <div class="logo"><img src="img/logo.png" alt="Pemex" style="height: 66px;"></div>
     <div class="menu-toggle">
@@ -30,6 +27,7 @@
         <li><a href="principios.php">Principios</a></li>
             </ul>
         </li>
+        <li><a href="vacantes.php">Vacantes</a></li>
         <li><a href="contacto.php">Contacto</a></li>
 <?php if(isset($_SESSION["usuario_id"])): ?>
 <li><a href="vacantes_internas.php">Vacantes internas</a></li>
