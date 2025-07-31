@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS aplicaciones (
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(100) NOT NULL,
     telefono VARCHAR(50) NOT NULL,
+    curriculum VARCHAR(255) DEFAULT NULL,
     mensaje TEXT NOT NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (vacante_id) REFERENCES vacantes(id)

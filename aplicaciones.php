@@ -6,7 +6,7 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 require_once 'conexion.php';
 
-$applications = $conn->query("SELECT a.id, v.puesto, a.nombre, a.correo, a.telefono, a.mensaje, a.fecha FROM aplicaciones a JOIN vacantes v ON a.vacante_id = v.id ORDER BY a.fecha DESC");
+$applications = $conn->query("SELECT a.id, v.puesto, a.nombre, a.correo, a.telefono, a.curriculum, a.mensaje, a.fecha FROM aplicaciones a JOIN vacantes v ON a.vacante_id = v.id ORDER BY a.fecha DESC");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,6 +33,7 @@ $applications = $conn->query("SELECT a.id, v.puesto, a.nombre, a.correo, a.telef
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Tel&eacute;fono</th>
+                <th>Curr&iacute;culum</th>
                 <th>Mensaje</th>
                 <th>Fecha</th>
             </tr>
@@ -42,6 +43,13 @@ $applications = $conn->query("SELECT a.id, v.puesto, a.nombre, a.correo, a.telef
                 <td><?php echo htmlspecialchars($row['nombre']); ?></td>
                 <td><?php echo htmlspecialchars($row['correo']); ?></td>
                 <td><?php echo htmlspecialchars($row['telefono']); ?></td>
+                <td>
+                    <?php if ($row['curriculum']): ?>
+                        <a href="<?php echo htmlspecialchars($row['curriculum']); ?>" target="_blank">Ver</a>
+                    <?php else: ?>
+                        N/A
+                    <?php endif; ?>
+                </td>
                 <td><?php echo nl2br(htmlspecialchars($row['mensaje'])); ?></td>
                 <td><?php echo htmlspecialchars($row['fecha']); ?></td>
             </tr>

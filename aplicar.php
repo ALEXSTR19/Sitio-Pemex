@@ -55,7 +55,7 @@ if ($vacante_id > 0) {
   <main>
     <section class="seccion">
       <h2>Enviar solicitud</h2>
-      <form class="vacantes-form" action="enviar_vacantes.php" method="POST">
+      <form class="vacantes-form" action="enviar_vacantes.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="vacante_id" value="<?php echo $vacante_id; ?>">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
@@ -68,6 +68,9 @@ if ($vacante_id > 0) {
 
         <label for="puesto">Puesto de inter&eacute;s:</label>
         <input type="text" id="puesto" name="puesto" required value="<?php echo htmlspecialchars($puesto_solicitud); ?>">
+
+        <label for="curriculum">Curr&iacute;culum (PDF o DOC):</label>
+        <input type="file" id="curriculum" name="curriculum" accept=".pdf,.doc,.docx" required>
 
         <label for="mensaje">Mensaje:</label>
         <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
