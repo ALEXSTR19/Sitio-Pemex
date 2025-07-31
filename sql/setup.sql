@@ -33,6 +33,15 @@ CREATE TABLE IF NOT EXISTS aplicaciones (
     FOREIGN KEY (vacante_id) REFERENCES vacantes(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS quejas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    destino VARCHAR(100) NOT NULL,
+    mensaje TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 INSERT INTO usuarios (usuario, password, rol) VALUES
 ('admin', '$2y$12$rYFelBfwLsXPv0QWvEVpVu1ZXydP/3idi7FtK4Atn7WH/ZIi5rryS', 'administrador');
 

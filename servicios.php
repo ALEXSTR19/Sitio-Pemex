@@ -30,6 +30,7 @@
           </ul>
         </li>
         <li><a href="vacantes.php">Vacantes</a></li>
+        <li><a href="quejas.php">Buzón de quejas</a></li>
         <li><a href="contacto.php">Contacto</a></li>
 <?php if(isset($_SESSION["usuario_id"])): ?>
 <li><a href="vacantes_internas.php">Vacantes internas</a></li>
