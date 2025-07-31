@@ -10,7 +10,7 @@
 <body>
     <div id="preloader">Cargando sitio...</div>
     <div class="vacantes-top">
-  <a href="vacantes.html" class="btn-vacantes">Vacantes</a>
+  <a href="vacantes.php" class="btn-vacantes">Vacantes</a>
 </div>
   <header>
     <div class="logo"><img src="img/logo.png" alt="Pemex" style="height: 66px;"></div>
@@ -19,17 +19,17 @@
     </div>
     <nav>
       <ul>
-        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.php">Inicio</a></li>
          <li class="dropdown">
       <input type="checkbox" id="submenu-toggle">
       <label for="submenu-toggle" class="menu-parent">Pemex <span class="arrow-icon">▾</span></label>
       <ul class="submenu">
-        <li><a href="historia.html">Historia</a></li>
-        <li><a href="mision.html">Misión y Visión</a></li>
-        <li><a href="principios.html">Principios</a></li>
+        <li><a href="historia.php">Historia</a></li>
+        <li><a href="mision.php">Misión y Visión</a></li>
+        <li><a href="principios.php">Principios</a></li>
             </ul>
         </li>
-        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="contacto.php">Contacto</a></li>
       </ul>
     </nav>
   </header>
