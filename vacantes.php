@@ -5,12 +5,19 @@ require_once "conexion.php";
 if(isset($_SESSION['usuario_id']) && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['puesto'], $_POST['descripcion'])) {
     $puesto = trim($_POST['puesto']);
     $descripcion = trim($_POST['descripcion']);
-    $stmt = $conn->prepare("INSERT INTO vacantes (puesto, descripcion) VALUES (?, ?)");
-    $stmt->bind_param('ss', $puesto, $descripcion);
+    $ubicacion = trim($_POST['ubicacion']);
+    $sueldo = trim($_POST['sueldo']);
+    $horario = trim($_POST['horario']);
+    $requisitos = trim($_POST['requisitos']);
+    $tipo_contrato = trim($_POST['tipo_contrato']);
+    $fecha_publicacion = trim($_POST['fecha_publicacion']);
+    $estado = trim($_POST['estado']);
+    $stmt = $conn->prepare("INSERT INTO vacantes (puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('sssssssss', $puesto, $descripcion, $ubicacion, $sueldo, $horario, $requisitos, $tipo_contrato, $fecha_publicacion, $estado);
     $stmt->execute();
 }
 
-$vacantes = $conn->query("SELECT id, puesto, descripcion FROM vacantes");
+$vacantes = $conn->query("SELECT id, puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado FROM vacantes");
 
 ?>
 <!DOCTYPE html>
@@ -55,10 +62,22 @@ $vacantes = $conn->query("SELECT id, puesto, descripcion FROM vacantes");
   <main>
     <h1>Vacantes disponibles</h1>
     <table class="vacantes-table">
-      <tr><th>Puesto</th><th>Descripci&oacute;n</th><th></th></tr>
+      <tr>
+        <th>Puesto</th>
+        <th>Ubicaci&oacute;n</th>
+        <th>Sueldo</th>
+        <th>Horario</th>
+        <th>Tipo de contrato</th>
+        <th>Descripci&oacute;n</th>
+        <th></th>
+      </tr>
       <?php while($row = $vacantes->fetch_assoc()): ?>
       <tr>
         <td><?php echo htmlspecialchars($row['puesto']); ?></td>
+        <td><?php echo htmlspecialchars($row['ubicacion']); ?></td>
+        <td><?php echo htmlspecialchars($row['sueldo']); ?></td>
+        <td><?php echo htmlspecialchars($row['horario']); ?></td>
+        <td><?php echo htmlspecialchars($row['tipo_contrato']); ?></td>
         <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
         <td><a class="btn-vacantes" href="aplicar.php?vacante_id=<?php echo $row['id']; ?>">Aplicar</a></td>
       </tr>
@@ -67,7 +86,7 @@ $vacantes = $conn->query("SELECT id, puesto, descripcion FROM vacantes");
 
 
 <?php if(isset($_SESSION['usuario_id'])): ?>
-<?php $vacantes_admin = $conn->query("SELECT puesto, descripcion FROM vacantes"); ?>
+<?php $vacantes_admin = $conn->query("SELECT puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado FROM vacantes"); ?>
 <section class="seccion">
   <h3>Agregar vacante</h3>
   <form method="POST" action="vacantes.php">
@@ -75,16 +94,41 @@ $vacantes = $conn->query("SELECT id, puesto, descripcion FROM vacantes");
     <input type="text" id="puesto_nuevo" name="puesto" required>
     <label for="descripcion_nueva">Descripci&oacute;n:</label>
     <textarea id="descripcion_nueva" name="descripcion" required></textarea>
+    <label for="ubicacion">Ubicaci&oacute;n:</label>
+    <input type="text" id="ubicacion" name="ubicacion" required>
+    <label for="sueldo">Sueldo:</label>
+    <input type="text" id="sueldo" name="sueldo" required>
+    <label for="horario">Horario:</label>
+    <input type="text" id="horario" name="horario" required>
+    <label for="requisitos">Requisitos:</label>
+    <textarea id="requisitos" name="requisitos" required></textarea>
+    <label for="tipo_contrato">Tipo de contrato:</label>
+    <input type="text" id="tipo_contrato" name="tipo_contrato" required>
+    <label for="fecha_publicacion">Fecha de publicaci&oacute;n:</label>
+    <input type="date" id="fecha_publicacion" name="fecha_publicacion" required>
+    <label for="estado">Estado:</label>
+    <input type="text" id="estado" name="estado" required>
     <button type="submit">Guardar</button>
   </form>
 </section>
 <section class="seccion">
   <h3>Listado de vacantes</h3>
   <table class="vacantes-table">
-    <tr><th>Puesto</th><th>Descripci&oacute;n</th></tr>
+    <tr>
+      <th>Puesto</th>
+      <th>Ubicaci&oacute;n</th>
+      <th>Sueldo</th>
+      <th>Horario</th>
+      <th>Tipo de contrato</th>
+      <th>Descripci&oacute;n</th>
+    </tr>
     <?php while($row = $vacantes_admin->fetch_assoc()): ?>
     <tr>
       <td><?php echo htmlspecialchars($row['puesto']); ?></td>
+      <td><?php echo htmlspecialchars($row['ubicacion']); ?></td>
+      <td><?php echo htmlspecialchars($row['sueldo']); ?></td>
+      <td><?php echo htmlspecialchars($row['horario']); ?></td>
+      <td><?php echo htmlspecialchars($row['tipo_contrato']); ?></td>
       <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
     </tr>
     <?php endwhile; ?>
