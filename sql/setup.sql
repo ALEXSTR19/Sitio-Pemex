@@ -11,7 +11,14 @@ CREATE TABLE IF NOT EXISTS usuarios (
 CREATE TABLE IF NOT EXISTS vacantes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     puesto VARCHAR(100) NOT NULL,
-    descripcion TEXT NOT NULL
+    descripcion TEXT NOT NULL,
+    ubicacion VARCHAR(100) DEFAULT NULL,
+    sueldo VARCHAR(50) DEFAULT NULL,
+    horario VARCHAR(100) DEFAULT NULL,
+    requisitos TEXT DEFAULT NULL,
+    tipo_contrato VARCHAR(50) DEFAULT NULL,
+    fecha_publicacion DATE DEFAULT NULL,
+    estado VARCHAR(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS aplicaciones (
@@ -28,5 +35,5 @@ CREATE TABLE IF NOT EXISTS aplicaciones (
 INSERT INTO usuarios (usuario, password, rol) VALUES
 ('admin', '$2y$12$rYFelBfwLsXPv0QWvEVpVu1ZXydP/3idi7FtK4Atn7WH/ZIi5rryS', 'administrador');
 
-INSERT INTO vacantes (puesto, descripcion) VALUES
-('Ejemplo de puesto', 'Ejemplo de descripcion');
+INSERT INTO vacantes (puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado) VALUES
+('Ejemplo de puesto', 'Ejemplo de descripcion', 'CDMX', 'A convenir', 'Lunes a Viernes', 'Experiencia de ejemplo', 'Tiempo completo', CURDATE(), 'Activa');

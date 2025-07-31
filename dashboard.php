@@ -13,8 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = intval($_POST['id']);
         $puesto = trim($_POST['puesto']);
         $descripcion = trim($_POST['descripcion']);
-        $stmt = $conn->prepare('UPDATE vacantes SET puesto=?, descripcion=? WHERE id=?');
-        $stmt->bind_param('ssi', $puesto, $descripcion, $id);
+        $ubicacion = trim($_POST['ubicacion']);
+        $sueldo = trim($_POST['sueldo']);
+        $horario = trim($_POST['horario']);
+        $requisitos = trim($_POST['requisitos']);
+        $tipo_contrato = trim($_POST['tipo_contrato']);
+        $fecha_publicacion = trim($_POST['fecha_publicacion']);
+        $estado = trim($_POST['estado']);
+        $stmt = $conn->prepare('UPDATE vacantes SET puesto=?, descripcion=?, ubicacion=?, sueldo=?, horario=?, requisitos=?, tipo_contrato=?, fecha_publicacion=?, estado=? WHERE id=?');
+        $stmt->bind_param('sssssssssi', $puesto, $descripcion, $ubicacion, $sueldo, $horario, $requisitos, $tipo_contrato, $fecha_publicacion, $estado, $id);
         $stmt->execute();
     } elseif(isset($_POST['accion']) && $_POST['accion'] === 'eliminar' && isset($_POST['id'])) {
         $id = intval($_POST['id']);
@@ -24,21 +31,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif(isset($_POST['puesto'], $_POST['descripcion'])) {
         $puesto = trim($_POST['puesto']);
         $descripcion = trim($_POST['descripcion']);
-        $stmt = $conn->prepare('INSERT INTO vacantes (puesto, descripcion) VALUES (?, ?)');
-        $stmt->bind_param('ss', $puesto, $descripcion);
+        $ubicacion = trim($_POST['ubicacion']);
+        $sueldo = trim($_POST['sueldo']);
+        $horario = trim($_POST['horario']);
+        $requisitos = trim($_POST['requisitos']);
+        $tipo_contrato = trim($_POST['tipo_contrato']);
+        $fecha_publicacion = trim($_POST['fecha_publicacion']);
+        $estado = trim($_POST['estado']);
+        $stmt = $conn->prepare('INSERT INTO vacantes (puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param('sssssssss', $puesto, $descripcion, $ubicacion, $sueldo, $horario, $requisitos, $tipo_contrato, $fecha_publicacion, $estado);
         $stmt->execute();
     }
 }
 
 if(isset($_GET['edit_id'])) {
     $id = intval($_GET['edit_id']);
-    $stmt = $conn->prepare('SELECT id, puesto, descripcion FROM vacantes WHERE id=?');
+    $stmt = $conn->prepare('SELECT id, puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado FROM vacantes WHERE id=?');
     $stmt->bind_param('i', $id);
     $stmt->execute();
     $edit_vacante = $stmt->get_result()->fetch_assoc();
 }
 
-$vacantes = $conn->query('SELECT id, puesto, descripcion FROM vacantes');
+$vacantes = $conn->query('SELECT id, puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado FROM vacantes');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -69,6 +83,20 @@ $vacantes = $conn->query('SELECT id, puesto, descripcion FROM vacantes');
                 <input type="text" id="puesto_nuevo" name="puesto" required value="<?php echo $edit_vacante ? htmlspecialchars($edit_vacante['puesto']) : ''; ?>">
                 <label for="descripcion_nueva">Descripci&oacute;n:</label>
                 <textarea id="descripcion_nueva" name="descripcion" required><?php echo $edit_vacante ? htmlspecialchars($edit_vacante['descripcion']) : ''; ?></textarea>
+                <label for="ubicacion">Ubicaci&oacute;n:</label>
+                <input type="text" id="ubicacion" name="ubicacion" required value="<?php echo $edit_vacante ? htmlspecialchars($edit_vacante['ubicacion']) : ''; ?>">
+                <label for="sueldo">Sueldo:</label>
+                <input type="text" id="sueldo" name="sueldo" required value="<?php echo $edit_vacante ? htmlspecialchars($edit_vacante['sueldo']) : ''; ?>">
+                <label for="horario">Horario:</label>
+                <input type="text" id="horario" name="horario" required value="<?php echo $edit_vacante ? htmlspecialchars($edit_vacante['horario']) : ''; ?>">
+                <label for="requisitos">Requisitos:</label>
+                <textarea id="requisitos" name="requisitos" required><?php echo $edit_vacante ? htmlspecialchars($edit_vacante['requisitos']) : ''; ?></textarea>
+                <label for="tipo_contrato">Tipo de contrato:</label>
+                <input type="text" id="tipo_contrato" name="tipo_contrato" required value="<?php echo $edit_vacante ? htmlspecialchars($edit_vacante['tipo_contrato']) : ''; ?>">
+                <label for="fecha_publicacion">Fecha de publicaci&oacute;n:</label>
+                <input type="date" id="fecha_publicacion" name="fecha_publicacion" required value="<?php echo $edit_vacante ? htmlspecialchars($edit_vacante['fecha_publicacion']) : ''; ?>">
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado" required value="<?php echo $edit_vacante ? htmlspecialchars($edit_vacante['estado']) : ''; ?>">
                 <button type="submit">Guardar</button>
                 <?php if($edit_vacante): ?>
                     <a class="btn-vacantes" href="dashboard.php">Cancelar</a>
@@ -78,10 +106,22 @@ $vacantes = $conn->query('SELECT id, puesto, descripcion FROM vacantes');
         <section>
             <h3>Listado de vacantes</h3>
             <table class="vacantes-table">
-                <tr><th>Puesto</th><th>Descripci&oacute;n</th><th>Acciones</th></tr>
+                <tr>
+                    <th>Puesto</th>
+                    <th>Ubicaci&oacute;n</th>
+                    <th>Sueldo</th>
+                    <th>Horario</th>
+                    <th>Tipo de contrato</th>
+                    <th>Descripci&oacute;n</th>
+                    <th>Acciones</th>
+                </tr>
                 <?php while($row = $vacantes->fetch_assoc()): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($row['puesto']); ?></td>
+                    <td><?php echo htmlspecialchars($row['ubicacion']); ?></td>
+                    <td><?php echo htmlspecialchars($row['sueldo']); ?></td>
+                    <td><?php echo htmlspecialchars($row['horario']); ?></td>
+                    <td><?php echo htmlspecialchars($row['tipo_contrato']); ?></td>
                     <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
                     <td>
                         <a class="btn-vacantes" href="dashboard.php?edit_id=<?php echo $row['id']; ?>">Editar</a>
