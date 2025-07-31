@@ -25,6 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
     } elseif(isset($_POST['accion']) && $_POST['accion'] === 'eliminar' && isset($_POST['id'])) {
         $id = intval($_POST['id']);
+        // Primero elimina posibles aplicaciones ligadas a la vacante para evitar
+        // errores por restricciones de clave for\xC3\xA1nea al borrar.
+        $stmt = $conn->prepare('DELETE FROM aplicaciones WHERE vacante_id=?');
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+
+        // Ahora elimina la vacante solicitada
         $stmt = $conn->prepare('DELETE FROM vacantes WHERE id=?');
         $stmt->bind_param('i', $id);
         $stmt->execute();
