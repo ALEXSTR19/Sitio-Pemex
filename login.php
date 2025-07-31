@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Iniciar sesi&oacute;n</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="login-page">
 <div class="login-container">
     <h2>Iniciar sesi&oacute;n</h2>
     <?php if ($error): ?>

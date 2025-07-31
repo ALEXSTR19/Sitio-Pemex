@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="vacantes-page">
     <div id="preloader">Cargando sitio...</div>
     <div class="vacantes-top">
   <a href="vacantes.php" class="btn-vacantes">Vacantes</a>
