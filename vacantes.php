@@ -93,10 +93,7 @@ $vacantes = $conn->query("SELECT id, puesto, descripcion FROM vacantes");
 <?php endif; ?>
   </main>
   <footer>
-<div class="footer-link">
-  <a href="https://www.google.com.mx/maps/place/XMCQ%2B7VQ,+92773+Barra+Nte" target="_blank" class="texto-link">
-    <img src="img/icmapa.png" alt="Dirección" style="height: 24px;">Dirección</a>
-</div>
+    &copy; 2024 PEMEX
   </footer>
   <script src="js/script.js"></script>
 </body>
