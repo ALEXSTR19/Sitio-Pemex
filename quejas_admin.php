@@ -6,13 +6,13 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 require_once 'conexion.php';
 
-$applications = $conn->query("SELECT a.id, v.puesto, a.nombre, a.correo, a.telefono, a.curriculum, a.mensaje, a.fecha FROM aplicaciones a JOIN vacantes v ON a.vacante_id = v.id ORDER BY a.fecha DESC");
+$quejas = $conn->query("SELECT id, nombre, correo, destino, mensaje, fecha FROM quejas ORDER BY fecha DESC");
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Aplicaciones</title>
+    <title>Quejas</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="dashboard-page">
@@ -27,30 +27,20 @@ $applications = $conn->query("SELECT a.id, v.puesto, a.nombre, a.correo, a.telef
         </ul>
     </aside>
     <main class="dashboard-content">
-        <h1>Aplicaciones recibidas</h1>
+        <h1>Quejas recibidas</h1>
         <table class="vacantes-table">
             <tr>
-                <th>Puesto</th>
                 <th>Nombre</th>
                 <th>Correo</th>
-                <th>Tel&eacute;fono</th>
-                <th>Curr&iacute;culum</th>
+                <th>Dirigido a</th>
                 <th>Mensaje</th>
                 <th>Fecha</th>
             </tr>
-            <?php while($row = $applications->fetch_assoc()): ?>
+            <?php while($row = $quejas->fetch_assoc()): ?>
             <tr>
-                <td><?php echo htmlspecialchars($row['puesto']); ?></td>
                 <td><?php echo htmlspecialchars($row['nombre']); ?></td>
                 <td><?php echo htmlspecialchars($row['correo']); ?></td>
-                <td><?php echo htmlspecialchars($row['telefono']); ?></td>
-                <td>
-                    <?php if ($row['curriculum']): ?>
-                        <a href="<?php echo htmlspecialchars($row['curriculum']); ?>" target="_blank">Ver</a>
-                    <?php else: ?>
-                        N/A
-                    <?php endif; ?>
-                </td>
+                <td><?php echo htmlspecialchars($row['destino']); ?></td>
                 <td><?php echo nl2br(htmlspecialchars($row['mensaje'])); ?></td>
                 <td><?php echo htmlspecialchars($row['fecha']); ?></td>
             </tr>
@@ -60,3 +50,4 @@ $applications = $conn->query("SELECT a.id, v.puesto, a.nombre, a.correo, a.telef
 </div>
 </body>
 </html>
+
