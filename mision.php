@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -30,6 +31,12 @@
             </ul>
         </li>
         <li><a href="contacto.php">Contacto</a></li>
+<?php if(isset($_SESSION["usuario_id"])): ?>
+<li><a href="vacantes_internas.php">Vacantes internas</a></li>
+<li><a href="logout.php">Cerrar sesión</a></li>
+<?php else: ?>
+<li><a href="login.php">Personal</a></li>
+<?php endif; ?>
       </ul>
     </nav>
   </header>
