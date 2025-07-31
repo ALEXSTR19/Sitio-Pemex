@@ -889,3 +889,7 @@ footer.slide-up {
 .login-container input{width:100%;padding:0.5rem;margin-top:0.25rem;}
 .error{color:red;}
 
+.login-icon img{height:24px;}
+
+.vacantes-table{width:100%;border-collapse:collapse;margin-top:1rem;}.vacantes-table th,.vacantes-table td{border:1px solid #ccc;padding:0.5rem;text-align:left;}
+
