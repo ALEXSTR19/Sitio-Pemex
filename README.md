@@ -5,7 +5,7 @@ Este proyecto es un sitio web simple desarrollado en PHP. Incluye un formulario 
 ## Configuraci\xC3\xB3n de la base de datos
 
 1. Crea una base de datos MySQL y un usuario con permisos. Las credenciales por defecto se encuentran en `conexion.php`.
-2. Ejecuta el script `sql/setup.sql` para crear las tablas necesarias (`usuarios`, `vacantes` y `aplicaciones`) e insertar un usuario de ejemplo.
+2. Ejecuta el script `sql/setup.sql` para crear las tablas necesarias (`usuarios`, `vacantes`, `aplicaciones` y `quejas`) e insertar un usuario de ejemplo.
 
 ```bash
 mysql -u <usuario> -p < sql/setup.sql

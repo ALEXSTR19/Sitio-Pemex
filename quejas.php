@@ -1,9 +1,14 @@
-<?php session_start(); ?>
+<?php
+session_start();
+$captcha_a = rand(1,5);
+$captcha_b = rand(1,5);
+$_SESSION['captcha_sum'] = $captcha_a + $captcha_b;
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>PEMEX | Transparencia</title>
+  <title>PEMEX | Buzón de quejas</title>
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
@@ -42,19 +47,21 @@
     </nav>
   </header>
   <main>
-    <section class="parallax-historia">
-      <div class="contenido-parallax">
-        <h2>Transparencia</h2>
-      </div>
-    </section>
-    <section class="historia-contenido">
-      <div class="historia-imagen">
-        <img src="img/ic4.png" alt="Transparencia">
-      </div>
-      <div class="historia-texto">
-        <p>En Pemex estamos comprometidos con la rendición de cuentas y la disponibilidad de información pública.</p>
-        <p>Consulta reportes financieros, auditorías y normativa vigente en nuestro portal de transparencia.</p>
-      </div>
+    <section class="seccion">
+      <h2>Envía tu queja</h2>
+      <form class="vacantes-form" action="enviar_queja.php" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" required>
+        <label for="destino">Dirigido a:</label>
+        <input type="text" id="destino" name="destino" required>
+        <label for="mensaje">Queja:</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+        <label for="captcha">¿Cuánto es <?php echo $captcha_a; ?> + <?php echo $captcha_b; ?>?</label>
+        <input type="number" id="captcha" name="captcha" required>
+        <button type="submit">Enviar</button>
+      </form>
     </section>
   </main>
   <footer>
