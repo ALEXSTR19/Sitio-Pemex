@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" id="contrasena" name="contrasena" required>
         <button type="submit">Ingresar</button>
     </form>
+    <a href="index.php" class="btn-back">Regresar al inicio</a>
 </div>
 </body>
 </html>

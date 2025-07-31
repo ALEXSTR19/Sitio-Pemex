@@ -888,4 +888,6 @@ footer.slide-up {
 .login-container label{display:block;margin-top:0.5rem;}
 .login-container input{width:100%;padding:0.5rem;margin-top:0.25rem;}
 .error{color:red;}
+.btn-back{display:inline-block;margin-top:1rem;padding:0.5rem 1rem;background-color:#006341;color:#fff;text-decoration:none;border-radius:4px;}
+.btn-back:hover{background-color:#004d33;}
 

@@ -68,8 +68,9 @@
 
         <button type="submit">Enviar</button>
       </form>
+      <a href="index.php" class="btn-back">Regresar al inicio</a>
     </section>
-    
+
   </main>
   <footer>
 <div class="footer-link">
