@@ -12,7 +12,6 @@ if(isset($_SESSION['usuario_id']) && $_SERVER['REQUEST_METHOD'] === 'POST' && is
 
 $vacantes = $conn->query("SELECT id, puesto, descripcion FROM vacantes");
 
-$puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -61,32 +60,11 @@ $puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
       <tr>
         <td><?php echo htmlspecialchars($row['puesto']); ?></td>
         <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
-        <td><a class="btn-vacantes" href="vacantes.php?puesto=<?php echo urlencode($row['puesto']); ?>#form-aplicar">Aplicar</a></td>
+        <td><a class="btn-vacantes" href="aplicar.php?puesto=<?php echo urlencode($row['puesto']); ?>">Aplicar</a></td>
       </tr>
       <?php endwhile; ?>
     </table>
 
-    <section id="form-aplicar" class="seccion">
-      <h2>Enviar solicitud</h2>
-      <form class="vacantes-form" action="enviar_vacantes.php" method="POST">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required>
-
-        <label for="telefono">Tel&eacute;fono:</label>
-        <input type="tel" id="telefono" name="telefono" required>
-
-        <label for="puesto">Puesto de inter&eacute;s:</label>
-        <input type="text" id="puesto" name="puesto" required value="<?php echo htmlspecialchars($puesto_solicitud); ?>">
-
-        <label for="mensaje">Mensaje:</label>
-        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-
-        <button type="submit">Enviar</button>
-      </form>
-    </section>
 
 <?php if(isset($_SESSION['usuario_id'])): ?>
 <?php $vacantes_admin = $conn->query("SELECT puesto, descripcion FROM vacantes"); ?>
