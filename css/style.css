@@ -346,9 +346,18 @@ footer.slide-up {
   max-width: 100%;
   height: auto;
   margin-bottom: 1rem;
-  background-color: white; 
+  background-color: white;
   padding: 1rem;
   border-radius: 5px;
+}
+
+/* Iconos dentro de la sección de cuadros */
+.icono-cuadro {
+  height: 66px;
+}
+
+.lista-valor {
+  text-align: left;
 }
 
 .cuadro h3 {

@@ -78,43 +78,44 @@
     </section>
 </section>
 
-    <section class="seccion-cuadros">
+    <section class="seccion-cuadros" aria-label="Información corporativa">
       <div class="contenedor-cuadros">
-  <div class="cuadro">
-  <img src="img/ic1.png" alt="En contexto" style="height: 66px;">
-  <h3>En contexto</h3>
-  <p class="descripcion">
-    <a href="docs/contexto.pdf" target="_blank" class="texto-link">Ver documento.</a>
-  </p>
-</div>
+        <div class="cuadro">
+          <img src="img/ic1.png" alt="En contexto" class="icono-cuadro">
+          <h3>En contexto</h3>
+          <p class="descripcion">
+            <a href="docs/contexto.pdf" target="_blank" class="texto-link">Ver documento.</a>
+          </p>
+        </div>
 
-<div class="cuadro">
-  <img src="img/ic2.png" alt="Cadena de valor" style="height: 66px;">
-  <h3>Cadena de valor</h3>
-  <ul class="descripcion">
-    <li>Exploración</li>
-    <li>Producción</li>
-    <li>Transformación Industrial</li>
-    <li>Logística</li>
-    <li>Comercialización</li>
-  </ul>
-</div>
+        <div class="cuadro">
+          <img src="img/ic2.png" alt="Cadena de valor" class="icono-cuadro">
+          <h3>Cadena de valor</h3>
+          <ul class="descripcion lista-valor">
+            <li>Exploración</li>
+            <li>Producción</li>
+            <li>Transformación Industrial</li>
+            <li>Logística</li>
+            <li>Comercialización</li>
+          </ul>
+        </div>
 
-    <div class="cuadro">
-      <img src="img/ic3.png" alt="Desempeño" style="height: 66px;">
-      <h3>Desempeño</h3>
-         <p class="descripcion">
-             <a href="docs/desemp.pdf" target="_blank" class="texto-link">Ver documento.</a>
-</p>
-    </div>
-    <div class="cuadro">
-      <img src="img/ic4.png" alt="Sostenibilidad" style="height: 66px;">
-      <h3>Sostenibilidad</h3>
-      <p>Se han fortalecido las políticas y prioridades de Petróleos Mexicanos en materia de sostenibilidad, a través de la creación del Comité de Sostenibilidad de PEMEX.</p>
-      <p>Se refrenda el compromiso de la institución por impulsar y fortalecer la sostenibilidad y rentabilidad de sus operaciones en beneficio de México.</p>
-    </div>
-  </div>
-</section>
+        <div class="cuadro">
+          <img src="img/ic3.png" alt="Desempeño" class="icono-cuadro">
+          <h3>Desempeño</h3>
+          <p class="descripcion">
+            <a href="docs/desemp.pdf" target="_blank" class="texto-link">Ver documento.</a>
+          </p>
+        </div>
+
+        <div class="cuadro">
+          <img src="img/ic4.png" alt="Sostenibilidad" class="icono-cuadro">
+          <h3>Sostenibilidad</h3>
+          <p>Se han fortalecido las políticas y prioridades de Petróleos Mexicanos en materia de sostenibilidad, a través de la creación del Comité de Sostenibilidad de PEMEX.</p>
+          <p>Se refrenda el compromiso de la institución por impulsar y fortalecer la sostenibilidad y rentabilidad de sus operaciones en beneficio de México.</p>
+        </div>
+      </div>
+    </section>
       </main>
   
   <footer>
