@@ -1,4 +1,17 @@
-<?php session_start(); ?>
+<?php
+session_start();
+require_once "conexion.php";
+if(isset($_SESSION['usuario_id'])) {
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['puesto'], $_POST['descripcion'])) {
+        $puesto = trim($_POST['puesto']);
+        $descripcion = trim($_POST['descripcion']);
+        $stmt = $conn->prepare("INSERT INTO vacantes (puesto, descripcion) VALUES (?, ?)");
+        $stmt->bind_param('ss', $puesto, $descripcion);
+        $stmt->execute();
+    }
+    $vacantes = $conn->query("SELECT puesto, descripcion FROM vacantes");
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -35,7 +48,7 @@
 <li><a href="vacantes_internas.php">Vacantes internas</a></li>
 <li><a href="logout.php">Cerrar sesión</a></li>
 <?php else: ?>
-<li><a href="login.php">Personal</a></li>
+<li class="login-icon"><a href="login.php"><img src="img/login.svg" alt="Iniciar sesión"></a></li>
 <?php endif; ?>
       </ul>
     </nav>
@@ -70,6 +83,30 @@
       </form>
     </section>
     
+<?php if(isset($_SESSION['usuario_id'])): ?>
+<section class="seccion">
+  <h3>Agregar vacante</h3>
+  <form method="POST" action="vacantes.php">
+    <label for="puesto_nuevo">Puesto:</label>
+    <input type="text" id="puesto_nuevo" name="puesto" required>
+    <label for="descripcion_nueva">Descripci&oacute;n:</label>
+    <textarea id="descripcion_nueva" name="descripcion" required></textarea>
+    <button type="submit">Guardar</button>
+  </form>
+</section>
+<section class="seccion">
+  <h3>Listado de vacantes</h3>
+  <table class="vacantes-table">
+    <tr><th>Puesto</th><th>Descripci&oacute;n</th></tr>
+    <?php while($row = $vacantes->fetch_assoc()): ?>
+    <tr>
+      <td><?php echo htmlspecialchars($row['puesto']); ?></td>
+      <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
+    </tr>
+    <?php endwhile; ?>
+  </table>
+</section>
+<?php endif; ?>
   </main>
   <footer>
 <div class="footer-link">

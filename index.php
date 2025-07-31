@@ -34,7 +34,7 @@
 <li><a href="vacantes_internas.php">Vacantes internas</a></li>
 <li><a href="logout.php">Cerrar sesión</a></li>
 <?php else: ?>
-<li><a href="login.php">Personal</a></li>
+<li class="login-icon"><a href="login.php"><img src="img/login.svg" alt="Iniciar sesión"></a></li>
 <?php endif; ?>
       </ul>
     </nav>
