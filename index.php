@@ -91,7 +91,7 @@
 <div class="cuadro">
   <img src="img/ic2.png" alt="Cadena de valor" style="height: 66px;">
   <h3>Cadena de valor</h3>
-  <ul class="descripcion" style="color: white;">
+  <ul class="descripcion">
     <li>Exploración</li>
     <li>Producción</li>
     <li>Transformación Industrial</li>
