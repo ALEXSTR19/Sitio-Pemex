@@ -53,10 +53,35 @@
     <img src="img/im6.png" alt="Imagen 6" class="slide">
   </div>
 </section>
+
+    <section class="parallax-sobre">
+      <div class="contenido-parallax">
+        <h2>¿Quiénes Somos?</h2>
+        <p>Petróleos Mexicanos es la empresa productiva del Estado dedicada a la exploración,
+        producción y distribución de hidrocarburos.</p>
+      </div>
     </section>
-    
+
+    <section class="info-pemex">
+      <div class="info-container">
+        <div class="info-item caida" style="--delay:0s;">
+          <h3>Compromiso Ambiental</h3>
+          <p>Implementamos procesos sustentables para reducir nuestra huella ecológica.</p>
+        </div>
+        <div class="info-item caida" style="--delay:0.1s;">
+          <h3>Innovación</h3>
+          <p>Desarrollamos tecnología de punta para optimizar la producción energética.</p>
+        </div>
+        <div class="info-item caida" style="--delay:0.2s;">
+          <h3>Seguridad</h3>
+          <p>Priorizamos la seguridad de nuestros trabajadores y comunidades.</p>
+        </div>
+      </div>
+    </section>
+</section>
+
     <section class="seccion-cuadros">
-  <div class="contenedor-cuadros">
+      <div class="contenedor-cuadros">
   <div class="cuadro">
   <img src="img/ic1.png" alt="En contexto" style="height: 66px;">
   <h3>En contexto</h3>
@@ -100,6 +125,7 @@
     <img src="img/icmapa.png" alt="Dirección" style="height: 24px;">Dirección</a>
 </div>
   </footer>
+  <button id="scrollTopBtn" title="Volver arriba">&uarr;</button>
   <script src="js/script.js"></script>
 </body>
 </html>
