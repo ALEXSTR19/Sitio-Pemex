@@ -427,6 +427,37 @@ footer.slide-up {
   padding: 1rem;
 }
 
+/* Formulario de vacantes */
+.vacantes-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.vacantes-form input,
+.vacantes-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.vacantes-form button {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: #006341;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.vacantes-form button:hover {
+  background-color: #004d33;
+}
+
 
 .historia-contenido {
   display: flex;

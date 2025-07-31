@@ -41,7 +41,26 @@
 </section>
     
     <section class="seccion">
-      <p>Estamos buscando talento. Envía tu CV a: reclutamiento@axtraltec.com</p>
+      <p>Estamos buscando talento. Completa el siguiente formulario y nos pondremos en contacto contigo:</p>
+
+      <form class="vacantes-form" action="enviar_vacantes.php" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" required>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required>
+
+        <label for="puesto">Puesto de interés:</label>
+        <input type="text" id="puesto" name="puesto" required>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
     </section>
     
   </main>
