@@ -1,6 +1,17 @@
 <?php
 session_start();
-$puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
+require_once 'conexion.php';
+$vacante_id = isset($_GET['vacante_id']) ? intval($_GET['vacante_id']) : 0;
+$puesto_solicitud = '';
+if ($vacante_id > 0) {
+    $stmt = $conn->prepare('SELECT puesto FROM vacantes WHERE id = ?');
+    $stmt->bind_param('i', $vacante_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $puesto_solicitud = $row['puesto'];
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -45,6 +56,7 @@ $puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
     <section class="seccion">
       <h2>Enviar solicitud</h2>
       <form class="vacantes-form" action="enviar_vacantes.php" method="POST">
+        <input type="hidden" name="vacante_id" value="<?php echo $vacante_id; ?>">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
 

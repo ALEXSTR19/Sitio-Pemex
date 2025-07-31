@@ -60,7 +60,7 @@ $vacantes = $conn->query("SELECT id, puesto, descripcion FROM vacantes");
       <tr>
         <td><?php echo htmlspecialchars($row['puesto']); ?></td>
         <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
-        <td><a class="btn-vacantes" href="aplicar.php?puesto=<?php echo urlencode($row['puesto']); ?>">Aplicar</a></td>
+        <td><a class="btn-vacantes" href="aplicar.php?vacante_id=<?php echo $row['id']; ?>">Aplicar</a></td>
       </tr>
       <?php endwhile; ?>
     </table>
