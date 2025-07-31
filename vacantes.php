@@ -2,7 +2,7 @@
 session_start();
 require_once "conexion.php";
 
-if(isset($_SESSION['usuario_id']) && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['puesto'], $_POST['descripcion'])) {
+if($conn && isset($_SESSION['usuario_id']) && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['puesto'], $_POST['descripcion'])) {
     $puesto = trim($_POST['puesto']);
     $descripcion = trim($_POST['descripcion']);
     $ubicacion = trim($_POST['ubicacion']);
@@ -17,7 +17,7 @@ if(isset($_SESSION['usuario_id']) && $_SERVER['REQUEST_METHOD'] === 'POST' && is
     $stmt->execute();
 }
 
-$vacantes = $conn->query("SELECT id, puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado FROM vacantes");
+$vacantes = $conn ? $conn->query("SELECT id, puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado FROM vacantes") : false;
 
 ?>
 <!DOCTYPE html>
@@ -71,7 +71,7 @@ $vacantes = $conn->query("SELECT id, puesto, descripcion, ubicacion, sueldo, hor
         <th>Descripci&oacute;n</th>
         <th></th>
       </tr>
-      <?php while($row = $vacantes->fetch_assoc()): ?>
+      <?php if($vacantes): while($row = $vacantes->fetch_assoc()): ?>
       <tr>
         <td><?php echo htmlspecialchars($row['puesto']); ?></td>
         <td><?php echo htmlspecialchars($row['ubicacion']); ?></td>
@@ -81,11 +81,13 @@ $vacantes = $conn->query("SELECT id, puesto, descripcion, ubicacion, sueldo, hor
         <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
         <td><a class="btn-vacantes" href="aplicar.php?vacante_id=<?php echo $row['id']; ?>">Aplicar</a></td>
       </tr>
-      <?php endwhile; ?>
+      <?php endwhile; else: ?>
+      <tr><td colspan="6">No hay vacantes disponibles.</td></tr>
+      <?php endif; ?>
     </table>
 
 
-<?php if(isset($_SESSION['usuario_id'])): ?>
+<?php if(isset($_SESSION['usuario_id']) && $conn): ?>
 <?php $vacantes_admin = $conn->query("SELECT puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado FROM vacantes"); ?>
 <section class="seccion">
   <h3>Agregar vacante</h3>
@@ -122,7 +124,7 @@ $vacantes = $conn->query("SELECT id, puesto, descripcion, ubicacion, sueldo, hor
       <th>Tipo de contrato</th>
       <th>Descripci&oacute;n</th>
     </tr>
-    <?php while($row = $vacantes_admin->fetch_assoc()): ?>
+    <?php while($vacantes_admin && $row = $vacantes_admin->fetch_assoc()): ?>
     <tr>
       <td><?php echo htmlspecialchars($row['puesto']); ?></td>
       <td><?php echo htmlspecialchars($row['ubicacion']); ?></td>
@@ -132,8 +134,10 @@ $vacantes = $conn->query("SELECT id, puesto, descripcion, ubicacion, sueldo, hor
       <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
     </tr>
     <?php endwhile; ?>
-  </table>
+    </table>
 </section>
+<?php elseif(isset($_SESSION['usuario_id'])): ?>
+<p>Error de conexión con la base de datos.</p>
 <?php endif; ?>
   </main>
   <footer>
