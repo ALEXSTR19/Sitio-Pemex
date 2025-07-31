@@ -68,7 +68,7 @@ $puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
 
     <section id="form-aplicar" class="seccion">
       <h2>Enviar solicitud</h2>
-      <form class="vacantes-form" action="enviar_vacantes.php" method="POST">
+      <form class="vacantes-form" action="enviar_vacantes.php" method="POST" enctype="multipart/form-data">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
 
@@ -83,6 +83,9 @@ $puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
 
         <label for="mensaje">Mensaje:</label>
         <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+        <label for="cv">Curr&iacute;culum (PDF/DOC):</label>
+        <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
 
         <button type="submit">Enviar</button>
       </form>
