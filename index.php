@@ -25,6 +25,8 @@
         <li><a href="historia.php">Historia</a></li>
         <li><a href="mision.php">Misión y Visión</a></li>
         <li><a href="principios.php">Principios</a></li>
+        <li><a href="servicios.php">Servicios</a></li>
+        <li><a href="transparencia.php">Transparencia</a></li>
         </ul></li>
         <li><a href="vacantes.php">Vacantes</a></li>
         <li><a href="contacto.php">Contacto</a></li>

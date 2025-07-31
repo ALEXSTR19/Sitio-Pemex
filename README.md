@@ -1,6 +1,6 @@
 # Sitio PEMEX
 
-Este proyecto es un sitio web simple desarrollado en PHP. Incluye un formulario de inicio de sesi\xC3\xB3n que valida las credenciales contra una base de datos MySQL.
+Este proyecto es un sitio web simple desarrollado en PHP. Incluye un formulario de inicio de sesión que valida las credenciales contra una base de datos MySQL. El portal cuenta con secciones de Historia, Misión, Principios y nuevas páginas de **Servicios** y **Transparencia** para consultar la información corporativa esencial.
 
 ## Configuraci\xC3\xB3n de la base de datos
 
