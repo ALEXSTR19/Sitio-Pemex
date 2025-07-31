@@ -1,3 +1,9 @@
+<?php
+require_once 'conexion.php';
+
+$sql = "SELECT titulo, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado FROM vacantes ORDER BY fecha_publicacion DESC";
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,28 +45,45 @@
       <h2>Vacantes</h2>
   </div>
 </section>
-    
+
     <section class="seccion">
-      <p>Estamos buscando talento. Completa el siguiente formulario y nos pondremos en contacto contigo:</p>
-
-      <form class="vacantes-form" action="enviar_vacantes.php" method="POST">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required>
-
-        <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" required>
-
-        <label for="puesto">Puesto de interés:</label>
-        <input type="text" id="puesto" name="puesto" required>
-
-        <label for="mensaje">Mensaje:</label>
-        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-
-        <button type="submit">Enviar</button>
-      </form>
+      <h3>Oportunidades laborales</h3>
+<?php if ($result && $result->num_rows > 0): ?>
+      <div class="tabla-container">
+        <table class="vacantes-tabla">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Descripción</th>
+              <th>Ubicación</th>
+              <th>Sueldo</th>
+              <th>Horario</th>
+              <th>Requisitos</th>
+              <th>Tipo de contrato</th>
+              <th>Fecha de publicación</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+<?php while ($row = $result->fetch_assoc()): ?>
+            <tr>
+              <td><?= htmlspecialchars($row['titulo']) ?></td>
+              <td><?= nl2br(htmlspecialchars($row['descripcion'])) ?></td>
+              <td><?= htmlspecialchars($row['ubicacion']) ?></td>
+              <td><?= htmlspecialchars($row['sueldo']) ?></td>
+              <td><?= htmlspecialchars($row['horario']) ?></td>
+              <td><?= nl2br(htmlspecialchars($row['requisitos'])) ?></td>
+              <td><?= htmlspecialchars($row['tipo_contrato']) ?></td>
+              <td><?= htmlspecialchars($row['fecha_publicacion']) ?></td>
+              <td><?= ($row['estado'] ? 'Activo' : 'Inactivo') ?></td>
+            </tr>
+<?php endwhile; ?>
+          </tbody>
+        </table>
+      </div>
+<?php else: ?>
+      <p>No hay vacantes disponibles en este momento.</p>
+<?php endif; ?>
     </section>
     
   </main>
