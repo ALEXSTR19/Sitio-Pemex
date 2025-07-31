@@ -17,4 +17,5 @@ El usuario de ejemplo se llama `admin` y la contrase\xC3\xB1a es `admin123`.
 
 - Accede a `login.php` e introduce las credenciales.
 - Tras iniciar sesi\xC3\xB3n se muestra el `dashboard.php`, donde podr\xC3\xA1s administrar las vacantes. Desde este panel puedes agregar, editar y eliminar registros. En el men\xC3\xBA lateral tambi\xC3\xA9n tienes acceso a `aplicaciones.php` para consultar las solicitudes recibidas.
+- Adem\xC3\xA1s se incluye la p\xC3\xA1gina `quejas_admin.php` para revisar las quejas enviadas desde el buz\xC3\xB3n.
 

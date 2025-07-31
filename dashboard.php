@@ -75,6 +75,7 @@ $vacantes = $conn->query('SELECT id, puesto, descripcion, ubicacion, sueldo, hor
         <ul>
             <li><a href="#vacantes">Vacantes</a></li>
             <li><a href="aplicaciones.php">Aplicaciones</a></li>
+            <li><a href="quejas_admin.php">Quejas</a></li>
             <li><a href="logout.php">Cerrar sesi&oacute;n</a></li>
         </ul>
     </aside>
