@@ -1,28 +1,14 @@
-<?php
-session_start();
-require_once 'conexion.php';
-$vacante_id = isset($_GET['vacante_id']) ? intval($_GET['vacante_id']) : 0;
-$puesto_solicitud = '';
-if ($vacante_id > 0) {
-    $stmt = $conn->prepare('SELECT puesto FROM vacantes WHERE id = ?');
-    $stmt->bind_param('i', $vacante_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($row = $result->fetch_assoc()) {
-        $puesto_solicitud = $row['puesto'];
-    }
-}
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>PEMEX | Aplicar</title>
+  <title>PEMEX | Servicios</title>
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="vacantes-page">
+<body>
   <div id="preloader">Cargando sitio...</div>
   <header>
     <div class="logo"><img src="img/logo.png" alt="Pemex" style="height: 66px;"></div>
@@ -55,30 +41,24 @@ if ($vacante_id > 0) {
     </nav>
   </header>
   <main>
-    <section class="seccion">
-      <h2>Enviar solicitud</h2>
-      <form class="vacantes-form" action="enviar_vacantes.php" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="vacante_id" value="<?php echo $vacante_id; ?>">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required>
-
-        <label for="telefono">Tel&eacute;fono:</label>
-        <input type="tel" id="telefono" name="telefono" required>
-
-        <label for="puesto">Puesto de inter&eacute;s:</label>
-        <input type="text" id="puesto" name="puesto" required value="<?php echo htmlspecialchars($puesto_solicitud); ?>">
-
-        <label for="curriculum">Curr&iacute;culum (PDF o DOC):</label>
-        <input type="file" id="curriculum" name="curriculum" accept=".pdf,.doc,.docx" required>
-
-        <label for="mensaje">Mensaje:</label>
-        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-
-        <button type="submit">Enviar</button>
-      </form>
+    <section class="parallax-historia">
+      <div class="contenido-parallax">
+        <h2>Nuestros Servicios</h2>
+      </div>
+    </section>
+    <section class="historia-contenido">
+      <div class="historia-imagen">
+        <img src="img/ic2.png" alt="Servicios">
+      </div>
+      <div class="historia-texto">
+        <p>Pemex ofrece servicios integrales que abarcan la cadena de valor de los hidrocarburos.</p>
+        <ul>
+          <li>Exploración y producción</li>
+          <li>Transformación industrial</li>
+          <li>Logística y distribución</li>
+          <li>Comercialización de combustibles y petroquímicos</li>
+        </ul>
+      </div>
     </section>
   </main>
   <footer>
