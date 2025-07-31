@@ -2,15 +2,38 @@
 session_start();
 require_once "conexion.php";
 
-if(isset($_SESSION['usuario_id']) && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['puesto'], $_POST['descripcion'])) {
-    $puesto = trim($_POST['puesto']);
-    $descripcion = trim($_POST['descripcion']);
-    $stmt = $conn->prepare("INSERT INTO vacantes (puesto, descripcion) VALUES (?, ?)");
-    $stmt->bind_param('ss', $puesto, $descripcion);
-    $stmt->execute();
+if(isset($_SESSION['usuario_id']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['update_id'], $_POST['puesto'], $_POST['descripcion'])) {
+        $update_id = (int)$_POST['update_id'];
+        $puesto = trim($_POST['puesto']);
+        $descripcion = trim($_POST['descripcion']);
+        $stmt = $conn->prepare('UPDATE vacantes SET puesto = ?, descripcion = ? WHERE id = ?');
+        $stmt->bind_param('ssi', $puesto, $descripcion, $update_id);
+        $stmt->execute();
+    } elseif (isset($_POST['delete_id'])) {
+        $delete_id = (int)$_POST['delete_id'];
+        $stmt = $conn->prepare('DELETE FROM vacantes WHERE id = ?');
+        $stmt->bind_param('i', $delete_id);
+        $stmt->execute();
+    } elseif (isset($_POST['puesto'], $_POST['descripcion'])) {
+        $puesto = trim($_POST['puesto']);
+        $descripcion = trim($_POST['descripcion']);
+        $stmt = $conn->prepare('INSERT INTO vacantes (puesto, descripcion) VALUES (?, ?)');
+        $stmt->bind_param('ss', $puesto, $descripcion);
+        $stmt->execute();
+    }
 }
 
 $vacantes = $conn->query("SELECT id, puesto, descripcion FROM vacantes");
+
+$vacante_editar = null;
+if (isset($_GET['edit']) && isset($_SESSION['usuario_id'])) {
+    $edit_id = (int)$_GET['edit'];
+    $stmt = $conn->prepare('SELECT id, puesto, descripcion FROM vacantes WHERE id = ?');
+    $stmt->bind_param('i', $edit_id);
+    $stmt->execute();
+    $vacante_editar = $stmt->get_result()->fetch_assoc();
+}
 
 $puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
 ?>
@@ -89,8 +112,20 @@ $puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
     </section>
 
 <?php if(isset($_SESSION['usuario_id'])): ?>
-<?php $vacantes_admin = $conn->query("SELECT puesto, descripcion FROM vacantes"); ?>
+<?php $vacantes_admin = $conn->query("SELECT id, puesto, descripcion FROM vacantes"); ?>
 <section class="seccion">
+<?php if ($vacante_editar): ?>
+  <h3>Editar vacante</h3>
+  <form method="POST" action="vacantes.php">
+    <input type="hidden" name="update_id" value="<?php echo $vacante_editar['id']; ?>">
+    <label for="puesto_nuevo">Puesto:</label>
+    <input type="text" id="puesto_nuevo" name="puesto" required value="<?php echo htmlspecialchars($vacante_editar['puesto']); ?>">
+    <label for="descripcion_nueva">Descripci&oacute;n:</label>
+    <textarea id="descripcion_nueva" name="descripcion" required><?php echo htmlspecialchars($vacante_editar['descripcion']); ?></textarea>
+    <button type="submit">Actualizar</button>
+    <a href="vacantes.php">Cancelar</a>
+  </form>
+<?php else: ?>
   <h3>Agregar vacante</h3>
   <form method="POST" action="vacantes.php">
     <label for="puesto_nuevo">Puesto:</label>
@@ -99,15 +134,23 @@ $puesto_solicitud = isset($_GET['puesto']) ? $_GET['puesto'] : '';
     <textarea id="descripcion_nueva" name="descripcion" required></textarea>
     <button type="submit">Guardar</button>
   </form>
+<?php endif; ?>
 </section>
 <section class="seccion">
   <h3>Listado de vacantes</h3>
   <table class="vacantes-table">
-    <tr><th>Puesto</th><th>Descripci&oacute;n</th></tr>
+    <tr><th>Puesto</th><th>Descripci&oacute;n</th><th>Acciones</th></tr>
     <?php while($row = $vacantes_admin->fetch_assoc()): ?>
     <tr>
       <td><?php echo htmlspecialchars($row['puesto']); ?></td>
       <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
+      <td>
+        <a href="vacantes.php?edit=<?php echo $row['id']; ?>">Editar</a>
+        <form method="POST" action="vacantes.php" style="display:inline;">
+          <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
+          <button type="submit" onclick="return confirm('¿Eliminar vacante?');">Eliminar</button>
+        </form>
+      </td>
     </tr>
     <?php endwhile; ?>
   </table>
