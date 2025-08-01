@@ -23,6 +23,7 @@ $applications = $conn->query("SELECT a.id, v.puesto, a.nombre, a.correo, a.telef
             <li><a href="dashboard.php">Vacantes</a></li>
             <li><a href="aplicaciones.php">Aplicaciones</a></li>
             <li><a href="quejas_admin.php">Quejas</a></li>
+            <li><a href="departamentos_admin.php">Departamentos</a></li>
             <li><a href="logout.php">Cerrar sesi&oacute;n</a></li>
         </ul>
     </aside>
