@@ -5,7 +5,7 @@ require_once 'conexion.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre = strip_tags(trim($_POST['nombre']));
     $correo = filter_var(trim($_POST['correo']), FILTER_SANITIZE_EMAIL);
-    $destino = strip_tags(trim($_POST['destino']));
+    $departamento_id = intval($_POST['departamento_id']);
     $mensaje = trim($_POST['mensaje']);
     $captcha = intval($_POST['captcha']);
 
@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($conn) {
-        $stmt = $conn->prepare("INSERT INTO quejas (nombre, correo, destino, mensaje) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('ssss', $nombre, $correo, $destino, $mensaje);
+        $stmt = $conn->prepare("INSERT INTO quejas (nombre, correo, departamento_id, mensaje) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('ssis', $nombre, $correo, $departamento_id, $mensaje);
         $stmt->execute();
     }
     echo "<script>alert('Queja enviada correctamente');window.location.href='index.php';</script>";
