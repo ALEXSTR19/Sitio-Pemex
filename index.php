@@ -41,6 +41,7 @@
     </nav>
   </header>
   <main>
+    <?php include 'submenu.php'; ?>
     <section class="hero">
       <h1>Bienvenido a PEMEX</h1>
       

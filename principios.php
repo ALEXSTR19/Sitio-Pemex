@@ -42,6 +42,7 @@
     </nav>
   </header>
   <main>
+    <?php include 'submenu.php'; ?>
            <section class="parallax-principios">
   <div class="contenido-parallax">
       <h2>Principios Éticos de Pemex</h2>

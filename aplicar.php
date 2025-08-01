@@ -56,6 +56,7 @@ if ($vacante_id > 0) {
     </nav>
   </header>
   <main>
+    <?php include 'submenu.php'; ?>
     <section class="seccion">
       <h2>Enviar solicitud</h2>
       <form class="vacantes-form" action="enviar_vacantes.php" method="POST" enctype="multipart/form-data">

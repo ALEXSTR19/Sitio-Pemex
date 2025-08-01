@@ -42,6 +42,7 @@
     </nav>
   </header>
   <main>
+    <?php include 'submenu.php'; ?>
       <section class="parallax-mision">
   <div class="contenido-parallax">
       <h2>Misión y Visión de Pemex</h2>
