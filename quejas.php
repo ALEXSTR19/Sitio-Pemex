@@ -50,6 +50,7 @@ $departamentos = $conn ? $conn->query("SELECT id, nombre FROM departamentos ORDE
     </nav>
   </header>
   <main>
+    <?php include 'submenu.php'; ?>
     <section class="seccion">
       <h2>Envía tu queja</h2>
       <form class="vacantes-form" action="enviar_queja.php" method="POST">

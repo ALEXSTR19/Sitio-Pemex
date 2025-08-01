@@ -42,6 +42,7 @@
     </nav>
   </header>
   <main>
+    <?php include 'submenu.php'; ?>
     <section class="parallax-contacto">
   <div class="contenido-parallax">
       <h2>Medios de Contacto</h2>

@@ -212,6 +212,31 @@ nav ul li a:active {
   color: white;
 }
 
+/* Submenú interno */
+.page-submenu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #006341;
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin: 1rem auto;
+}
+
+.page-submenu a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.page-submenu a:hover {
+  background-color: white;
+  color: #006341;
+}
+
 .menu-toggle {
   display: none;
   flex-direction: column;

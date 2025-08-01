@@ -42,6 +42,7 @@
     </nav>
   </header>
   <main>
+    <?php include 'submenu.php'; ?>
     <section class="parallax-historia">
       <div class="contenido-parallax">
         <h2>Nuestros Servicios</h2>

@@ -41,6 +41,7 @@
   </header>
 
   <main>
+    <?php include 'submenu.php'; ?>
     <section class="parallax-historia">
       <div class="contenido-parallax">
         <h2>Ética, Transparencia y Datos Personales</h2>

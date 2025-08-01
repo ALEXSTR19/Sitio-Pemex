@@ -18,6 +18,7 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<?php include 'submenu.php'; ?>
 <div class="vacantes-internas">
     <h2>Vacantes internas</h2>
     <p>Bienvenido, <?php echo htmlspecialchars($_SESSION['rol']); ?>.</p>

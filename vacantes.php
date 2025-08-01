@@ -63,6 +63,7 @@ $vacantes = $conn ? $conn->query("SELECT id, puesto, descripcion, ubicacion, sue
     </nav>
   </header>
   <main>
+    <?php include 'submenu.php'; ?>
     <h1>Vacantes disponibles</h1>
     <table class="vacantes-table">
       <tr>
