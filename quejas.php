@@ -1,8 +1,11 @@
 <?php
 session_start();
+require_once 'conexion.php';
 $captcha_a = rand(1,5);
 $captcha_b = rand(1,5);
 $_SESSION['captcha_sum'] = $captcha_a + $captcha_b;
+
+$departamentos = $conn ? $conn->query("SELECT id, nombre FROM departamentos ORDER BY nombre") : null;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -55,7 +58,13 @@ $_SESSION['captcha_sum'] = $captcha_a + $captcha_b;
         <label for="correo">Correo:</label>
         <input type="email" id="correo" name="correo" required>
         <label for="destino">Dirigido a:</label>
-        <input type="text" id="destino" name="destino" required>
+        <select id="destino" name="departamento_id" required>
+        <?php if($departamentos): ?>
+          <?php while($dep = $departamentos->fetch_assoc()): ?>
+            <option value="<?php echo $dep['id']; ?>"><?php echo htmlspecialchars($dep['nombre']); ?></option>
+          <?php endwhile; ?>
+        <?php endif; ?>
+        </select>
         <label for="mensaje">Queja:</label>
         <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
         <label for="captcha">¿Cuánto es <?php echo $captcha_a; ?> + <?php echo $captcha_b; ?>?</label>

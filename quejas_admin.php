@@ -6,7 +6,17 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 require_once 'conexion.php';
 
-$quejas = $conn->query("SELECT id, nombre, correo, destino, mensaje, fecha FROM quejas ORDER BY fecha DESC");
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nuevo_departamento'])) {
+    $nuevo = trim($_POST['nuevo_departamento']);
+    if ($nuevo !== '') {
+        $stmt = $conn->prepare("INSERT INTO departamentos (nombre) VALUES (?)");
+        $stmt->bind_param('s', $nuevo);
+        $stmt->execute();
+    }
+}
+
+$departamentos = $conn->query("SELECT id, nombre FROM departamentos ORDER BY nombre");
+$quejas = $conn->query("SELECT q.id, q.nombre, q.correo, d.nombre AS departamento, q.mensaje, q.fecha FROM quejas q JOIN departamentos d ON q.departamento_id = d.id ORDER BY q.fecha DESC");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -27,6 +37,17 @@ $quejas = $conn->query("SELECT id, nombre, correo, destino, mensaje, fecha FROM 
         </ul>
     </aside>
     <main class="dashboard-content">
+        <h1>Departamentos</h1>
+        <form method="POST" class="vacantes-form" style="max-width:300px;margin-bottom:20px;">
+            <input type="text" name="nuevo_departamento" placeholder="Nombre del departamento" required>
+            <button type="submit">Agregar</button>
+        </form>
+        <ul>
+            <?php while($dep = $departamentos->fetch_assoc()): ?>
+                <li><?php echo htmlspecialchars($dep['nombre']); ?></li>
+            <?php endwhile; ?>
+        </ul>
+
         <h1>Quejas recibidas</h1>
         <table class="vacantes-table">
             <tr>
@@ -40,7 +61,7 @@ $quejas = $conn->query("SELECT id, nombre, correo, destino, mensaje, fecha FROM 
             <tr>
                 <td><?php echo htmlspecialchars($row['nombre']); ?></td>
                 <td><?php echo htmlspecialchars($row['correo']); ?></td>
-                <td><?php echo htmlspecialchars($row['destino']); ?></td>
+                <td><?php echo htmlspecialchars($row['departamento']); ?></td>
                 <td><?php echo nl2br(htmlspecialchars($row['mensaje'])); ?></td>
                 <td><?php echo htmlspecialchars($row['fecha']); ?></td>
             </tr>
