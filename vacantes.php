@@ -90,6 +90,10 @@ $vacantes = $conn ? $conn->query("SELECT id, puesto, descripcion, ubicacion, sue
       <?php endif; ?>
     </table>
 
+    <div class="gracias-container">
+      <img src="img/logo.png" alt="Gracias" class="gracias-image">
+      <p class="gracias-mensaje">Gracias por interesarte en nuestra empresa, revisaremos tus datos y te llamaremos si eres lo que buscamos.</p>
+    </div>
 
 <?php if(isset($_SESSION['usuario_id']) && $conn): ?>
 <?php $vacantes_admin = $conn->query("SELECT puesto, descripcion, ubicacion, sueldo, horario, requisitos, tipo_contrato, fecha_publicacion, estado FROM vacantes"); ?>

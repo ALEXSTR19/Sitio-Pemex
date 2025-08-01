@@ -1049,3 +1049,8 @@ body.login-page {
 .dashboard-content{flex:1;padding:1rem;background:#f5f5f5;}
 body.dashboard-page{margin:0;}
 
+.gracias-container{text-align:center;margin-top:1rem;}
+.gracias-image{width:150px;animation:gracias-bounce 2s infinite;}
+@keyframes gracias-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.gracias-mensaje{margin-top:0.5rem;font-weight:bold;}
+
