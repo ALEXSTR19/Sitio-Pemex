@@ -70,7 +70,8 @@ if ($vacante_id > 0) {
         <input type="tel" id="telefono" name="telefono" required>
 
         <label for="puesto">Puesto de inter&eacute;s:</label>
-        <input type="text" id="puesto" name="puesto" required value="<?php echo htmlspecialchars($puesto_solicitud); ?>">
+        <input type="text" id="puesto" name="puesto" required
+               value="<?php echo htmlspecialchars($puesto_solicitud); ?>" readonly>
 
         <label for="curriculum">Curr&iacute;culum (PDF o DOC):</label>
         <input type="file" id="curriculum" name="curriculum" accept=".pdf,.doc,.docx" required>
